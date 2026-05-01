@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Clientes Formulario</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            height: 100vh;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        form {
+            width: 100%;
+        }
+
+        .campo {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+
+        .error {
+            color: red;
+            font-size: 14px;
+            margin-top: 4px;
+        }
+
+        .acciones {
+            margin-top: 15px;
+        }
+
+        .btn {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .btn-guardar {
+            background-color: #01415B;
+            color: white;
+        }
+
+        .btn-volver {
+            text-decoration: none;
+            margin-left: 10px;
+            background-color: #01415B;
+        }
+    </style>
+
+</head>
+<body>
+
+<div class="container">
+    <h1 th:text="${modoEdicion} ? 'Editar Cliente' : 'Nuevo Cliente'"></h1>
+
+    <form th:action="${modoEdicion} ? @{/clientes/actualizar/{id}(id=${cliente.dpiCliente})} : @{/clientes/guardar}"
+          th:object="${cliente}" method="post">
+
+        <input type="hidden" th:field="*{dpiCliente}">
+
+        Nombre: <input type="text" th:field="*{nombreCliente}"><br>
+        Apellido: <input type="text" th:field="*{apellidoCliente}"><br>
+        Dirección: <input type="text" th:field="*{direccion}"><br>
+        Estado: <input type="checkbox" th:field="*{estado}"><br>
+
+        <button type="submit">Guardar</button>
+    </form>
+
+    <a th:href="@{/clientes}">Volver</a>
+</div>
+
+</body>
+</html>
